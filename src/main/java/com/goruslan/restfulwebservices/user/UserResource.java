@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class UserResource {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<Object> newUser(@RequestBody User user){
+    public ResponseEntity<Object> newUser(@Valid @RequestBody User user){
         User savedUser = service.save(user);
         // Will add uri to new created user into the header
         URI location = ServletUriComponentsBuilder
