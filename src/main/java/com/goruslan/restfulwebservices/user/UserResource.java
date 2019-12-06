@@ -1,5 +1,6 @@
 package com.goruslan.restfulwebservices.user;
 
+import com.goruslan.restfulwebservices.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +20,12 @@ public class UserResource {
         return service.findAll();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
     public User getUser(@PathVariable int id){
-        return service.findOne(id);
+        User user = service.findOne(id);
+        if(user == null)
+            throw new UserNotFoundException("id - " + id);
+        return user;
     }
 
 
